@@ -102,22 +102,29 @@ int main(int argc, char *args[])
         }
         else
         {
-            // Apply the image
-            SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
-
-            // Update the surface
-            SDL_UpdateWindowSurface(gWindow);
-
-            // Hack to get window to stay open
-            SDL_Event e;
+            // Main loop flag
             bool quit = false;
-            while (quit == false)
+
+            // Event handler
+            SDL_Event e;
+
+            while (!quit)
             {
-                while (SDL_PollEvent(&e))
+                // Handle events on queue
+                while (SDL_PollEvent(&e) != 0)
                 {
+                    // User requests quit
                     if (e.type == SDL_QUIT)
+                    {
                         quit = true;
+                    }
                 }
+
+                // Apply the image
+                SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+
+                // Update the surface
+                SDL_UpdateWindowSurface(gWindow);
             }
         }
     }
